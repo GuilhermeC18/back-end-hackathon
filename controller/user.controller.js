@@ -16,6 +16,7 @@ exports.createUser = async (req, res, next)=>{
   try {
   const newName = req.body.name;
   const newEmail = req.body.email; 
+  const newPassword = req.body.password;
   const newPosition = req.body.position;
   const newEducation = req.body.education; 
   const newFormerEmployer = req.body.former_employer; 
@@ -33,7 +34,9 @@ exports.createUser = async (req, res, next)=>{
   const createdUser = await client.user.create({
       data: { name: newName,
               email: newEmail,
+              password: newPassword,
               position: newPosition,
+              isHR: false,
               education: newEducation,
               former_employer: newFormerEmployer, 
               experience_in_the_trade: newExperience_in_Trade,
