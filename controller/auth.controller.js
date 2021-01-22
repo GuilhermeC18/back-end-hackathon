@@ -14,7 +14,10 @@ findUserByEmail = async (email) =>{
 
 exports.register = async (req, res, next) =>{
   try{
-     const { email, name, password, isHR, position} = req.body; 
+     const { email, name, password, hrCode, position} = req.body; 
+    if(!hrCode === process.env.HR_CODE){
+        throw createError(401);
+    }
      const userExist = await findUserByEmail(email);
      if(userExist) {
          throw createError(422, 'User already registered');
@@ -25,7 +28,7 @@ exports.register = async (req, res, next) =>{
         { email, 
           name,
           hashedPassword,
-          isHR,
+          isHR:true,
           position
         }});
      res.status(201).json({message: "User Created", userId: newUser.id});
