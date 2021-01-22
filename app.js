@@ -1,5 +1,5 @@
 const express = require("express");
-const createError = require('http-errors');
+const createError = require("http-errors");
 const errorHandlingMiddleware = require("./middleware/error-handling.middleware");
 const app = express();
 const PORT = process.env.PORT || 8000; 
@@ -11,7 +11,7 @@ const { user } = require("./config/prisma-config");
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(mainRouter);
+app.use("/api", mainRouter);
 
 
 
@@ -35,8 +35,9 @@ app.use('*', (req, res, next) =>{
 
 
 
+
 app.use(errorHandlingMiddleware);
 
 app.listen(PORT, () => {
-    console.log(`app running on port ${PORT} `);
+  console.log(`app running on port ${PORT} `);
 });
